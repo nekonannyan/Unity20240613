@@ -8,7 +8,15 @@ public class Block : MonoBehaviour
     //何かとぶつかったときビルトインメソッド
     private void OnCollisionEnter(Collision collision)
     {
-
+        //スコアを追加
+        if(ScoreScript.instance != null)
+        {
+            ScoreScript.instance.ScoreManager(score);
+        }
+        else
+        {
+            Debug.LogError("インスタンスが存在しません");
+        }
         //ゲームオブジェクトを削除
         Destroy(gameObject);
     }

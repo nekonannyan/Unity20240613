@@ -30,6 +30,9 @@ public class BlockGenerator : MonoBehaviour
             }
 
         }
+
+        //ƒXƒRƒA‚Ì‰Šú‰»
+
     }
 
     // Update is called once per frame
