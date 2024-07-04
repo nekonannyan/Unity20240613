@@ -7,43 +7,47 @@ using UnityEngine.UI;
 
 public class ScoreScript : MonoBehaviour
 {
-    //ƒNƒ‰ƒX‚Ì—Bˆê‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Û‚·‚é‚½‚ß‚Ì“®“I•Ï”
+    // ã‚¯ãƒ©ã‚¹ã®å”¯ä¸€ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä¿æŒã™ã‚‹é™çš„å¤‰æ•°
     public static ScoreScript instance;
-    //ƒXƒRƒA‚Ì•W¦‚·‚é‚½‚ß‚ÌƒeƒLƒXƒgƒRƒ“ƒ|[ƒlƒ“ƒg‚Æƒg[ƒ^ƒ‹ƒXƒRƒA
-    public GameObject scoreText;
-    private int totalscore = 0;
-    //ƒvƒ‰ƒCƒx[ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
-    private void Awake()
-    {
-        //ƒCƒ“ƒXƒ^ƒ“ƒX‚ª‘¶İ‚µ‚È‚¢ê‡‚Í‚±‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğİ’è
-        if(instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);  //ƒV[ƒ“‚ğ‚Ü‚½‚¢‚Å‚àƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Û
-        }
-        //‚·‚Å‚É‘¶İ‚·‚éê‡‚ÍV‚µ‚¢ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ”jŠü
-        else
-        {
-            Destroy(gameObject);    
-        }
 
-    }
-    //”½‰f‚³‚ê‚é‚½‚ß‚Ìƒƒ]ƒbƒg‚ğ’è‹`
+    // ã‚¹ã‚³ã‚¢ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®Textã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
+    public GameObject scoreText;
+    private int totalScore = 0;
+
     private void Start()
     {
-        scoreText = this.gameObject;
-        this.scoreText.GetComponent<TextMeshProUGUI>().text = "Score : " + totalscore.ToString();
+        ScoreManager(SceneData.score);
     }
-    //ƒXƒRƒA‚ğXV‚µ‚ÄAƒeƒLƒXƒgƒRƒ“ƒ|[ƒlƒ“ƒg‚É”½‰f‚·‚é
-    public void ScoreManager(int  score)
+
+    // Awakeãƒ¡ã‚½ãƒƒãƒ‰ã§ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®åˆæœŸåŒ–ã‚’è¡Œã†
+    void Awake()
     {
-        totalscore += score;
-        //ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ•\¦‚·‚é
+        // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒå­˜åœ¨ã—ãªã„å ´åˆã¯ã“ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¨­å®š
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // ã‚·ãƒ¼ãƒ³ã‚’ã¾ãŸã„ã§ã‚‚ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä¿æŒ
+        }
+        else
+        {
+            Destroy(gameObject); // æ—¢ã«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒå­˜åœ¨ã™ã‚‹å ´åˆã¯æ–°ã—ã„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç ´æ£„
+        }
+    }
+
+    // ã‚¹ã‚³ã‚¢ã‚’æ›´æ–°ã—ã€Textã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã«åæ˜ ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+    public void ScoreManager(int score)
+    {
+        totalScore += score;
         UpdateScoreText();
     }
-    //ƒXƒRƒA‚ğƒeƒLƒXƒgƒRƒ“ƒ|[ƒlƒ“ƒg‚É•\¦‚·‚éƒƒ\ƒbƒg
+
+    // ã‚¹ã‚³ã‚¢ã‚’Textã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã«è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     private void UpdateScoreText()
     {
-        this.scoreText.GetComponent<TextMeshProUGUI>().text = "Score : " + totalscore.ToString();
+        this.scoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + totalScore.ToString();
+    }
+    public int GetCurrentScore()
+    {
+        return totalScore;
     }
 }

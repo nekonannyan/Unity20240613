@@ -5,19 +5,19 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     public int score = 10;
-    //‰½‚©‚Æ‚Ô‚Â‚©‚Á‚½‚Æ‚«ƒrƒ‹ƒgƒCƒ“ƒƒ\ƒbƒh
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚Ô‚Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½rï¿½ï¿½ï¿½gï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½bï¿½h
     private void OnCollisionEnter(Collision collision)
     {
-        //ƒXƒRƒA‚ğ’Ç‰Á
-        if(ScoreScript.instance != null)
+        // ã‚¹ã‚³ã‚¢ã‚’ScoreScriptã«è¿½åŠ 
+        if (ScoreScript.instance != null)
         {
             ScoreScript.instance.ScoreManager(score);
         }
         else
         {
-            Debug.LogError("ƒCƒ“ƒXƒ^ƒ“ƒX‚ª‘¶İ‚µ‚Ü‚¹‚ñ");
+            Debug.LogError("ScoreScript instance is not set.");
         }
-        //ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğíœ
+        // ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤
         Destroy(gameObject);
     }
 }

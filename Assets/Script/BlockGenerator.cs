@@ -4,40 +4,47 @@ using UnityEngine;
 
 public class BlockGenerator : MonoBehaviour
 {
-    //GameObjectの追加
+
     public GameObject blockPrefab;
-    //スパン
+
     float span = 0.3f;
     int row = 4;
     int col = 7;
     int BlockScaleX = 2;
     int BlockScaleY = 1;
-    // Start is called before the first frame update
+    int totalBlocks = 0;
+
     void Start()
     {
-        //ブロックのポジション
+
         int px,py;
         px = -7; py = 5;
-        //ブロックの配置
+        int scoreDefult = 0;
+        totalBlocks = row * col;
+
         for (int i = 0; i < row; i++)
         {
             
             for(int j = 0; j < col; j++)
             {
-                //ゲームオブジェクトの生成
+
                 GameObject go = Instantiate(blockPrefab);
                 go.transform.position = new Vector3(px+(j * (span + BlockScaleX)), py + (i * (span + BlockScaleY)), 0);
             }
 
         }
 
-        //スコアの初期化
-
+        ScoreScript.instance.ScoreManager(scoreDefult);
     }
 
-    // Update is called once per frame
-    void Update()
+    //繧ｲ繝ｼ繝繧ｯ繝ｪ繧｢
+    public void BlocklDestroyed()
     {
-        
+        totalBlocks--;
+        SceneData.totalBlocks = totalBlocks;
+        if (totalBlocks <= 0)
+        {
+            GameManager.instance.EndGame(totalBlocks);
+        }
     }
 }
