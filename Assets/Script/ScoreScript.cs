@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
@@ -11,13 +12,8 @@ public class ScoreScript : MonoBehaviour
     public static ScoreScript instance;
 
     // スコアを表示するためのTextコンポーネント
-    public GameObject scoreText;
+    private TextMeshProUGUI scoreText;     //TextMeshProGUIコンポーネントを保持する形に変更
     private int totalScore = 0;
-
-    private void Start()
-    {
-        ScoreManager(SceneData.score);
-    }
 
     // Awakeメソッドでインスタンスの初期化を行う
     void Awake()
@@ -27,6 +23,7 @@ public class ScoreScript : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject); // シーンをまたいでもインスタンスを保持
+            SceneManager.sceneLoaded += OnSceneLoaded;      //シーンがロードされた時に呼び出されるイベントを登録
         }
         else
         {
@@ -34,6 +31,10 @@ public class ScoreScript : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Initialize();
+    }
     // スコアを更新し、Textコンポーネントに反映するメソッド
     public void ScoreManager(int score)
     {
@@ -44,10 +45,48 @@ public class ScoreScript : MonoBehaviour
     // スコアをTextコンポーネントに表示するメソッド
     private void UpdateScoreText()
     {
-        this.scoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + totalScore.ToString();
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + totalScore.ToString();
+        }
     }
+
+    //トータルのスコア
     public int GetCurrentScore()
     {
         return totalScore;
     }
+    //初期化
+    public void Initialize()
+    {
+        //スコアのタグを取得し、スコアを初期化させる
+        GameObject scoreTextObject = GameObject.FindWithTag("ScoreText");
+
+        if (scoreTextObject != null)
+        {
+            scoreText = scoreTextObject.GetComponent<TextMeshProUGUI>();
+            UpdateScoreText();
+        }
+    }
+    //シーンが呼び出された時にイベントを登録
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //シーンがロードされた後再初期化
+        StartCoroutine(InitializeAfterFrame());
+    }
+
+    private IEnumerator InitializeAfterFrame()
+    {
+        //フレームが終わるまで待つ
+        yield return null;
+        Initialize();
+    }
+
+    //イベントの解除
+    private void OnDestroy()
+    {
+        //解除
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 }

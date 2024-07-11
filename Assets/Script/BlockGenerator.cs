@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Collections.AllocatorManager;
 
 public class BlockGenerator : MonoBehaviour
 {
@@ -28,8 +29,9 @@ public class BlockGenerator : MonoBehaviour
             for(int j = 0; j < col; j++)
             {
 
-                GameObject go = Instantiate(blockPrefab);
-                go.transform.position = new Vector3(px+(j * (span + BlockScaleX)), py + (i * (span + BlockScaleY)), 0);
+                GameObject block = Instantiate(blockPrefab);
+                block.transform.position = new Vector3(px+(j * (span + BlockScaleX)), py + (i * (span + BlockScaleY)), 0);
+                block.tag = "Blocks";
             }
 
         }

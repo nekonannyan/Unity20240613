@@ -632,9 +632,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1206338337}
+      - m_Target: {fileID: 1206338335}
         m_TargetAssemblyTypeName: StartController, Assembly-CSharp
-        m_MethodName: OnStartButtonPressed
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

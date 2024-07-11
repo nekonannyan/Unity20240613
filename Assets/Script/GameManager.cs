@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class GameManager : MonoBehaviour
 {
     //唯一のインスタンスとして静的変数を生成
@@ -35,6 +36,32 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Result");
     }
     //リスタートメソッド
+    public void ReturnToStart()
+    {
+        ResetGame();
+        SceneManager.LoadScene("Start");
+    }
+
+    //リスタートメソッド
+    public void ResetGame()
+    {
+        SceneData.score = 0;
+        SceneData.totalBlocks = 0;
+
+        //すべてのブロックを削除
+        GameObject[] blocks = GameObject.FindGameObjectsWithTag("Blocks");
+
+        foreach (GameObject block in blocks)
+        {
+            Destroy(block);
+        }
+
+        //スコアの初期化
+        if (ScoreScript.instance != null)
+        {
+            ScoreScript.instance.ScoreManager(-ScoreScript.instance.GetCurrentScore());
+        }
+    }
+
 
 }
-
